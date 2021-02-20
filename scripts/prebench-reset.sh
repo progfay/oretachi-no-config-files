@@ -2,13 +2,14 @@
 
 set -eu
 
-cd $(dirname $0)
+SCRIPT_DIR=$(cd $(dirname $0); pwd)
+cd ${SCRIPT_DIR}
 source ./env.sh
 
 echo "config deploy"
-sh ./config-deploy.sh 
+bash ./config-deploy.sh 
 
-cd $(dirname $0)
+cd ${SCRIPT_DIR}
 echo "reset mysql"
 sudo rm -f ${MYSQL_SLOW_LOG}
 sudo systemctl restart mysql.service
@@ -18,7 +19,7 @@ sudo rm -f ${ACCESS_LOG}
 sudo systemctl restart nginx.service
 
 echo "build and reset app"
-cd $(dirname $0)
+cd ${SCRIPT_DIR}
 cd ../webapps/go
 go build
 sudo systemctl restart ${DEFAULT_APPLICATION_SERVICE}

@@ -1,7 +1,8 @@
 #!/bin/bash
 set -eu
 
-cd $(dirname $0)
+SCRIPT_DIR=$(cd $(dirname $0); pwd)
+cd ${SCRIPT_DIR}
 source env.sh
 
 sudo systemctl stop ${DISABLE_APPLICATION_SERVICE}

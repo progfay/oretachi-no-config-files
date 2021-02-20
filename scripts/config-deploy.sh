@@ -2,7 +2,8 @@
 
 set -eu
 
-cd $(dirname $0)
+SCRIPT_DIR=$(cd $(dirname $0); pwd)
+cd ${SCRIPT_DIR}
 source env.sh
 
 sudo cp ../configs/nginx/nginx.conf ${NGINX_CONF_PATH}
