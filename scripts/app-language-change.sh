@@ -1,7 +1,11 @@
 #!/bin/bash
+set -eu
 
-sudo systemctl stop r-isucon-node.service
-sudo systemctl disable r-isucon-node.service
+cd $(dirname $0)
+source env.sh
 
-sudo systemctl enable r-isucon-go.service
-sudo systemctl start r-isucon-go.service
+sudo systemctl stop ${DISABLE_APPLICATION_SERVICE}
+sudo systemctl disable ${DISABLE_APPLICATION_SERVICE}
+
+sudo systemctl enable ${DEFAULT_APPLICATION_SERVICE}
+sudo systemctl start ${DEFAULT_APPLICATION_SERVICE}

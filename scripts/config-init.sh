@@ -13,19 +13,14 @@ cp ${MYSQL_CONF_PATH} ../configs/mysql/mysql.conf.d/mysqld.cnf
 
 cd $(dirname $0)
 echo "access log setting (you should manualy set to ../configs/nginx/nginx.conf)"
-cat <<EOF
-log_format with_time '$remote_addr - $remote_user [$time_local] '
-                     '"$request" $status $body_bytes_sent '
-                     '"$http_referer" "$http_user_agent" $request_time';
-access_log /var/log/nginx/access.log with_time;
-EOF
 
+cat ../configs/nginx/accesslog.md
 
 cd $(dirname $0)
 echo "slow query setting (this is automaticaly set to ../configs/mysql/mysql.conf.d/mysqld.cnf"
 cat <<EOF >> ../configs/mysql/mysql.conf.d/mysqld.cnf
 # Here you can see queries with especially long duration
 slow_query_log         = 1
-slow_query_log_file    = /tmp/slow.log
+slow_query_log_file    = ${MYSQL_SLOW_LOG}
 long_query_time        = 0
 EOF
